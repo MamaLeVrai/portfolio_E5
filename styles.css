@@ -1,0 +1,77 @@
+/* Contact section modern style */
+.contact-card {padding: 28px 24px;}
+.contact-flex {display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;}
+.contact-info {background: rgba(255,255,255,0.03); border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); padding: 24px 32px; min-width: 260px; max-width: 340px; flex: 1 1 260px;}
+.contact-row {display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px;}
+.contact-row:last-child {margin-bottom: 0;}
+.contact-icon {display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; font-size: 1.7rem; background: #e3f2fd; color: #1976d2; border-radius: 50%; box-shadow: 0 1px 4px rgba(30,40,60,0.08); margin-right: 6px;}
+.contact-label {font-weight: bold; font-size: 1.08rem; color: #ffd54f; font-family: Orbitron, monospace;}
+.contact-info a {color: #4fc3f7; text-decoration: none; font-size: 1.04rem;}
+.contact-info a:hover {text-decoration: underline;}
+.contact-map {flex: 2 1 320px; min-width: 220px; max-width: 520px;}
+@media (max-width: 900px) {
+	.contact-flex {flex-direction: column; gap: 18px;}
+	.contact-map {max-width: 100%;}
+	.contact-info {max-width: 100%;}
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Roboto,system-ui,Arial;color:#EAEAEA;background:#03040a}
+.canvas#starfield, canvas#starfield{position:fixed;inset:0;z-index:0}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:4;padding:18px 28px;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15));backdrop-filter: blur(6px);display:flex;align-items:center}
+.topbar h1{font-family:Orbitron,monospace;margin:0;font-size:1.6rem;color:#fff;letter-spacing:1px}
+.subtitle{opacity:0.9;margin-left:10px;font-size:0.9rem}
+.actions button{margin-left:8px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);color:#fff;cursor:pointer}
+.sheet{position:relative;z-index:2;max-width:1000px;margin:120px auto 60px;padding:20px;display:block}
+.sheet .card{margin:18px 0}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+.card h2{margin-top:0;font-family:Orbitron,monospace;color:#ffd54f}
+.editable{min-height:90px;outline:none}
+#filesList{margin-top:10px}
+.note{font-size:0.8rem;opacity:0.85}
+.footer{position:relative;z-index:2;text-align:center;padding:18px;color:#8f9aa3}
+/* small pointer ring (hidden) */
+.pointer-ring{display:none !important; /* hidden: keeps JS intact but makes it invisible */ position:fixed;z-index:1;pointer-events:none;border-radius:999px;border:0;width:0;height:0;transform:translate(-50%,-50%);mix-blend-mode:screen;box-shadow:none;transition:none}
+@media (max-width:800px){.sheet{grid-template-columns:1fr}}
+
+/* main navigation */
+.main-nav{position:fixed;top:70px;right:24px;z-index:5;display:flex;flex-direction:column;gap:10px;background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);backdrop-filter:blur(4px)}
+.main-nav a{color:#ffd54f;padding:6px 10px;border-radius:6px;text-decoration:none;font-family:Orbitron,monospace}
+.main-nav a:hover{background:rgba(255,210,80,0.06)}
+
+@media (max-width:800px){
+	.main-nav{position:fixed;top:64px;left:8px;right:8px;flex-direction:row;justify-content:space-around}
+	.topbar{padding:12px 14px}
+}
+
+/* menu toggle button */
+.menu-toggle{align-self:flex-start;padding:8px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:2px solid rgba(255,255,255,0.06);background:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));color:#ffd54f;cursor:pointer;width:44px;height:44px;box-shadow:0 6px 18px rgba(0,0,0,0.6);transition:transform 160ms ease, box-shadow 160ms ease}
+.menu-toggle svg{display:block}
+.menu-toggle:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,0.7)}
+
+/* closed state for main-nav */
+.main-nav{position:fixed;top:12px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg, rgba(6,10,20,0.96), rgba(10,14,28,0.94));padding:14px;border-radius:10px;border:1px solid rgba(255,220,120,0.06);backdrop-filter:blur(8px);align-items:flex-start;min-width:64px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,0.6), 0 0 40px rgba(30,40,60,0.25)}
+/* animation: slide & fade (including vertical collapse via max-height) */
+.main-nav{transition:width 260ms cubic-bezier(.2,.9,.2,1),opacity 220ms ease,transform 220ms ease,box-shadow 200ms ease,max-height 260ms ease}
+.main-nav a{color:#ffd54f;padding:10px 14px;border-radius:6px;text-decoration:none;font-family:Orbitron,monospace;opacity:1;transform:translateX(0);transition:opacity 220ms ease,transform 220ms ease,font-size 160ms ease}
+.main-nav a:hover{background:rgba(255,210,80,0.12);color:#0b0b0b}
+
+/* collapsed keeps the menu box visible but hides the links so the hamburger remains clickable */
+/* closed: compact both in width and height so only the hamburger is visible */
+.main-nav.closed{width:64px;padding:10px;max-height:64px}
+.main-nav.closed a{opacity:0;transform:translateX(8px);pointer-events:none}
+
+/* opened state (explicit) */
+.main-nav.open{width:260px;padding:14px;max-height:1000px}
+.main-nav.open a{opacity:1;transform:translateX(0);pointer-events:auto;font-size:1rem}
+
+/* menu toggle visual when open */
+.main-nav.open .menu-toggle{background:#ffd54f;color:#0b0b0b;border-color:rgba(255,255,255,0.08);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,200,80,0.08);}
+
+/* subtle accent line */
+.main-nav::after{content:'';position:absolute;left:-6px;top:6px;bottom:6px;width:4px;border-radius:4px;background:linear-gradient(180deg,#ffd54f, #ffb84d);opacity:0.06}
+
+/* contact form */
+#contact form{display:flex;flex-direction:column;gap:8px}
+#contact input, #contact textarea{width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.25);color:#fff}
+#contact label{font-size:0.9rem}
+#contact button{padding:8px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:#ffd54f;color:#0b0b0b;cursor:pointer}
