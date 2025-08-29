@@ -1,3 +1,8 @@
+<!--
+  Portfolio BTS SIO — Thème spatial/Star Wars
+  Ce fichier HTML structure la page principale du portfolio.
+  Chaque section est commentée pour expliquer son rôle.
+-->
 <!doctype html>
 <html lang="fr">
 <head>
@@ -8,18 +13,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- Fond animé : ciel étoilé généré en JavaScript (voir script.js) -->
   <canvas id="starfield"></canvas>
 
+  <!-- Section d'accueil (hero) avec nom, sous-titre et flèche -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Margueray Marius</h1>
+      <p class="hero-subtitle">Étudiant BTS SIO — Développeur / Administrateur</p>
+      <a href="#about" class="hero-scroll" aria-label="Aller au contenu">
+        <svg width="48" height="48" viewBox="0 0 48 48"><path d="M12 20l12 12 12-12" stroke="#ffd54f" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Bandeau supérieur avec le nom et le titre -->
   <header class="topbar">
-    <h1 id="name">Votre Nom</h1>
-    <p class="subtitle" id="tagline">Étudiant BTS SIO — Développeur / Administrateur</p>
-  <!-- actions intentionally left empty; menu toggle integrated into right-side nav -->
-  <div class="actions"></div>
+    <h1 id="name">Margueray Marius</h1> <!-- Nom principal affiché en haut -->
+    <p class="subtitle" id="tagline">Étudiant BTS SIO — Développeur / Administrateur</p> <!-- Sous-titre -->
+    <div class="actions"></div>
   </header>
 
   <!-- Main navigation (fixed) -->
+  <!-- Menu de navigation latéral (à droite, déroulant) -->
   <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
-    <button id="menuToggle" class="menu-toggle" aria-expanded="true" aria-controls="main-nav" aria-label="Basculer le menu">
+  <!-- Bouton hamburger pour ouvrir/fermer le menu -->
+  <button id="menuToggle" class="menu-toggle" aria-expanded="true" aria-controls="main-nav" aria-label="Basculer le menu">
       <!-- hamburger icon SVG -->
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <rect x="3" y="6" width="18" height="2" rx="1" fill="currentColor"></rect>
@@ -27,19 +47,24 @@
         <rect x="3" y="16" width="18" height="2" rx="1" fill="currentColor"></rect>
       </svg>
     </button>
-    <a href="#about">À propos</a>
-    <a href="#skills">Compétences</a>
-    <a href="#projects">Projets</a>
-    <a href="#documents">Documents</a>
-    <a href="#contact">Contact</a>
+  <!-- Liens vers les différentes sections de la page -->
+  <a href="#home">Accueil</a>
+  <a href="#about">À propos</a>
+  <a href="#skills">Compétences</a>
+  <a href="#projects">Projets</a>
+  <a href="#documents">Documents</a>
+  <a href="#contact">Contact</a>
   </nav>
 
+  <!-- Contenu principal du portfolio -->
   <main class="sheet">
+    <!-- Section présentation personnelle -->
     <section class="card" id="about">
       <h2>À propos</h2>
       <div class="editable" contenteditable id="aboutText">Écrivez ici une courte présentation, vos objectifs pour le BTS SIO, et les compétences clés.</div>
     </section>
 
+    <!-- Section compétences techniques et transversales -->
     <section class="card" id="skills">
       <h2>Compétences</h2>
       <ul contenteditable id="skillsList">
@@ -49,18 +74,21 @@
       </ul>
     </section>
 
+    <!-- Section pour présenter les projets réalisés -->
     <section class="card" id="projects">
       <h2>Projets</h2>
       <div class="editable" contenteditable id="projectsText">Présentez vos projets (nom, rôle, technos, liens, captures).</div>
     </section>
 
+    <!-- Section pour ajouter et visualiser des documents (CV, rapports, etc.) -->
     <section class="card" id="documents">
       <h2>Documents (CV, rapports)</h2>
-      <input id="fileInput" type="file" multiple />
-      <div id="filesList">Aucun document chargé.</div>
+      <input id="fileInput" type="file" multiple /> <!-- Permet de sélectionner plusieurs fichiers -->
+      <div id="filesList">Aucun document chargé.</div> <!-- Liste des fichiers sélectionnés -->
       <p class="note">Les fichiers ajoutés ici sont accessibles localement dans votre session de navigateur (création de liens locaux). Pour l'examen, joignez aussi vos sources dans une archive ou dossier.</p>
     </section>
 
+    <!-- Section contact avec adresse, mail, téléphone et carte Google Maps -->
     <section class="card contact-card" id="contact">
       <h2>Contact</h2>
       <div class="contact-flex">
@@ -88,16 +116,19 @@
           </div>
         </div>
         <div class="contact-map">
+          <!-- Carte Google Maps intégrée pour l'adresse -->
           <iframe title="Carte 30 Rue de la Miséricorde, Caen" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2652.964964073839!2d-0.3705536843939642!3d49.18462297915237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480a43e2e2e2e2e3%3A0x2e2e2e2e2e2e2e2e!2s30%20Rue%20de%20la%20Mis%C3%A9ricorde%2C%2014000%20Caen!5e0!3m2!1sfr!2sfr!4v1690000000001!5m2!1sfr!2sfr" width="340" height="220" style="border:0;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.18);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Pied de page -->
   <footer class="footer">
     <small>&copy; <span id="year">2025</span> — Portfolio BTS SIO</small>
   </footer>
 
+  <!-- Script principal pour l’animation et les interactions -->
   <script src="script.js" defer></script>
 </body>
 </html>

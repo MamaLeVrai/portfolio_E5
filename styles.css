@@ -1,6 +1,54 @@
 /* Contact section modern style */
 .contact-card {padding: 28px 24px;}
 .contact-flex {display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;}
+/*
+	Section d'accueil (hero) : nom/prénom centré, sous-titre, flèche vers le bas
+*/
+.hero {
+	position: relative;
+	z-index: 3;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	background: none;
+	margin-bottom: 0;
+}
+.hero-content {
+	margin-top: 60px;
+}
+.hero-title {
+	font-family: Orbitron, monospace;
+	font-size: 3.2rem;
+	color: #fff;
+	letter-spacing: 2px;
+	text-shadow: 0 4px 32px #000, 0 0 8px #ffd54f44;
+	margin-bottom: 18px;
+}
+.hero-subtitle {
+	font-size: 1.35rem;
+	color: #ffd54f;
+	font-family: Roboto, Arial, sans-serif;
+	margin-bottom: 38px;
+	text-shadow: 0 2px 12px #000;
+}
+.hero-scroll {
+	display: inline-block;
+	margin-top: 10px;
+	animation: hero-bounce 1.8s infinite;
+	transition: transform 0.2s;
+}
+.hero-scroll:hover { transform: scale(1.15); }
+@keyframes hero-bounce {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(18px); }
+}
+@media (max-width: 600px) {
+	.hero-title { font-size: 2.1rem; }
+	.hero-subtitle { font-size: 1rem; }
+}
 .contact-info {background: rgba(255,255,255,0.03); border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); padding: 24px 32px; min-width: 260px; max-width: 340px; flex: 1 1 260px;}
 .contact-row {display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px;}
 .contact-row:last-child {margin-bottom: 0;}
@@ -15,7 +63,7 @@
 	.contact-info {max-width: 100%;}
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Roboto,system-ui,Arial;color:#EAEAEA;background:#03040a}
+html,body{height:100%;margin:0;font-family:Roboto,system-ui,Arial;color:#EAEAEA;background:#03040a;cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><g><ellipse cx="18" cy="22" rx="7" ry="10" fill="%2399aabb" stroke="%23ffd54f" stroke-width="1.5"/><ellipse cx="18" cy="17" rx="3.2" ry="4.2" fill="%2300e0ff" stroke="%230b0b0b" stroke-width="1.2"/><rect x="16.2" y="6" width="3.6" height="10" rx="1.2" fill="%23ffd54f" stroke="%230b0b0b" stroke-width="1"/><polygon points="18,2 21,10 15,10" fill="%23ffd54f" stroke="%230b0b0b" stroke-width="1"/><rect x="17.2" y="28" width="1.6" height="6" rx="0.8" fill="%23ffd54f" stroke="%230b0b0b" stroke-width="0.8"/></g></svg>') 16 4, pointer;}
 .canvas#starfield, canvas#starfield{position:fixed;inset:0;z-index:0}
 .topbar{position:fixed;top:0;left:0;right:0;z-index:4;padding:18px 28px;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15));backdrop-filter: blur(6px);display:flex;align-items:center}
 .topbar h1{font-family:Orbitron,monospace;margin:0;font-size:1.6rem;color:#fff;letter-spacing:1px}
