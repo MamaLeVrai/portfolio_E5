@@ -146,27 +146,105 @@
   const mainNav = document.getElementById('main-nav');      // panneau de navigation
   // Par défaut, le menu est ouvert (classe .open)
   if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
-  if (mainNav) { mainNav.classList.add('open'); mainNav.classList.remove('closed'); }
+  if (mainNav) {
+    mainNav.classList.add('open');
+    mainNav.classList.remove('closed');
+    document.body.classList.add('nav-open');
+  }
   // Quand on clique sur le bouton, on ouvre/ferme le menu (animation CSS)
   if (menuToggle && mainNav) {
     menuToggle.addEventListener('click', () => {
       const isOpen = mainNav.classList.toggle('open');
       if (isOpen) mainNav.classList.remove('closed'); else mainNav.classList.add('closed');
       menuToggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.classList.toggle('nav-open', isOpen);
       // L'état visuel est géré par les classes CSS (.open/.closed)
     });
   }
 
+  // ===============================
+  // Affichage du titre dans la topbar selon la section visible
+  // ===============================
+  const homeSection = document.getElementById('home');
+  if (homeSection) {
+    document.body.classList.add('hero-visible');
+    const heroObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const shouldHide = entry.isIntersecting && entry.intersectionRatio > 0.35;
+        document.body.classList.toggle('hero-visible', shouldHide);
+      });
+    }, { threshold: [0, 0.35, 0.7, 1] });
+    heroObserver.observe(homeSection);
+  }
+
 
   // ===============================
-  // (Ancien) Formulaire de contact — désactivé, remplacé par infos statiques
+  // Formulaire de contact avec reCAPTCHA et envoi au serveur
   // ===============================
-  // Le code ci-dessous n'est plus utilisé, car la section contact affiche maintenant
-  // directement l'adresse, le mail et le téléphone. Il est laissé en exemple.
-  // const contactForm = document.getElementById('contactForm');
-  // if (contactForm) {
-  //   contactForm.addEventListener('submit', async e => { ... });
-  // }
+  const contactForm = document.getElementById('contactForm');
+  const contactStatus = document.getElementById('contactStatus');
+  const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  if (contactForm && contactStatus) {
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const setStatus = (message, isError = false) => {
+      contactStatus.textContent = message;
+      contactStatus.classList.toggle('error', isError);
+    };
+    contactForm.addEventListener('submit', async evt => {
+      evt.preventDefault();
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus('Envoi en cours...');
+
+      const name = (document.getElementById('contactName')?.value || '').trim();
+      const email = (document.getElementById('contactEmail')?.value || '').trim();
+      const subject = (document.getElementById('contactSubject')?.value || '').trim();
+      const message = (document.getElementById('contactMessage')?.value || '').trim();
+
+      if (!name || !email || !message || !emailPattern.test(email)) {
+        setStatus('Merci de remplir correctement tous les champs obligatoires.', true);
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      if (!window.grecaptcha) {
+        setStatus('Le service reCAPTCHA n\'est pas disponible. Veuillez réessayer plus tard.', true);
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      const captchaToken = window.grecaptcha.getResponse();
+      if (!captchaToken) {
+        setStatus('Veuillez cocher le reCAPTCHA avant d\'envoyer.', true);
+        if (submitBtn) submitBtn.disabled = false;
+        return;
+      }
+
+      const payload = { name, email, subject, message, captchaToken };
+
+      try {
+        const response = await fetch('/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(text || 'Erreur serveur');
+        }
+
+        setStatus('Votre message a été envoyé avec succès. Merci !');
+        contactForm.reset();
+        window.grecaptcha.reset();
+      } catch (error) {
+        console.error('contact form error', error);
+        setStatus("L'envoi a échoué. Merci de réessayer plus tard.", true);
+        window.grecaptcha.reset();
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
 
 
   // ===============================

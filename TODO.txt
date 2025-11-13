@@ -1,0 +1,5 @@
+Next steps:
+
+Replace YOUR_RECAPTCHA_SITE_KEY in index.html with your Google reCAPTCHA site key.
+Set RECAPTCHA_SECRET (and SMTP vars) before running npm start.
+Test the form end-to-end to confirm the captcha checks and email sending work with your credentials.

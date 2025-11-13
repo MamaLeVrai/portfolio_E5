@@ -36,8 +36,10 @@ $env:SMTP_PORT = '587'
 $env:SMTP_USER = 'user@example.com'
 $env:SMTP_PASS = 'password'
 $env:FROM_ADDRESS = 'user@example.com'
+$env:RECAPTCHA_SECRET = 'votre_cle_secrete_recaptcha'
 npm start
 ```
 
- - Le serveur écoute sur le port 3000 par défaut. Le formulaire POSTe sur `/send` et le serveur utilise `nodemailer`.
- - Remplacez les variables d'environnement par vos informations SMTP. Pour de la production, utilisez un relais SMTP sécurisé et protégez les secrets.
+ - Le serveur écoute sur le port 3000 par défaut. Le formulaire POSTe sur `/send`, vérifie le reCAPTCHA côté serveur, puis envoie l'email via `nodemailer`.
+ - Remplacez les variables d'environnement par vos informations SMTP et votre clé `RECAPTCHA_SECRET`. Sur la page, remplacez également `YOUR_RECAPTCHA_SITE_KEY` dans `index.html` par votre clé publique.
+ - Pour de la production, utilisez un relais SMTP sécurisé et protégez les secrets (variables d'environnement, fichiers `.env`, coffre-fort, etc.).
