@@ -1,6 +1,7 @@
 // Simple Express server to receive contact form and send email via nodemailer
 // Usage: set environment variables SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, FROM_ADDRESS
 
+require('dotenv').config();
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const nodemailer = require('nodemailer');
