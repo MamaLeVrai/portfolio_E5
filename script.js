@@ -1,196 +1,253 @@
+// ============================================
+// Portfolio BTS SIO SLAM — Script principal
+// ============================================
+(function () {
 
-// ===============================
-// Animation du ciel étoilé spatial
-// ===============================
-(function(){
-  // On récupère le canvas (zone de dessin) et son contexte 2D
+  // -------------------------------------------
+  // 1. Animation de fond interactive (souris)
+  // -------------------------------------------
   const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  // Largeur et hauteur du canvas (plein écran)
-  let W = canvas.width = innerWidth;
-  let H = canvas.height = innerHeight;
-  const TAU = Math.PI * 2; // Un tour complet (360°) en radians
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = innerWidth;
+    let H = canvas.height = innerHeight;
+    const TAU = Math.PI * 2;
 
-  // Différents types de particules pour l'effet spatial
-  const bgStars = [];   // Petites étoiles de fond (fixes, scintillent)
-  const mainStars = []; // Étoiles principales (mobiles, repoussées par la souris)
-  const dust = [];      // Poussières spatiales (légères, mobiles)
-  const sparks = [];    // Étincelles (effet lors du passage de la souris)
+    const bgStars = [];
+    const mainStars = [];
+    const dust = [];
+    const sparks = [];
+    let mouse = { x: -9999, y: -9999 };
 
-  // Position de la souris (hors écran par défaut)
-  let mouse = { x: -9999, y: -9999 };
+    function area() { return Math.max(400000, W * H); }
 
-  // Calcule la surface de l'écran pour adapter le nombre de particules
-  function area() { return Math.max(400000, W * H); }
+    function initParticles() {
+      bgStars.length = 0; mainStars.length = 0; dust.length = 0; sparks.length = 0;
+      const a = area();
 
-  // Initialise toutes les particules (appelé au chargement et au redimensionnement)
-  function initAll() {
-    // On vide tous les tableaux
-    bgStars.length = 0; mainStars.length = 0; dust.length = 0; sparks.length = 0;
-    const a = area();
-    // Calcul du nombre de particules selon la taille de l'écran
-    const BG_COUNT = Math.floor(a / 45000); // étoiles de fond
-    const MAIN_COUNT = Math.floor(a / 140000) + 200; // étoiles mobiles
-    const DUST_COUNT = Math.floor(a / 22000) * 2; // poussières
-
-    // Création des étoiles de fond
-    for (let i = 0; i < BG_COUNT; i++) {
-      bgStars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 0.9 + 0.2, alpha: 0.12 + Math.random() * 0.45, tw: Math.random() * TAU });
-    }
-    // Création des étoiles principales
-    for (let i = 0; i < MAIN_COUNT; i++) {
-      mainStars.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.14, vy: (Math.random() - 0.5) * 0.14, r: Math.random() * 1.6 + 0.4, alpha: 0.6 + Math.random() * 0.6, twPhase: Math.random() * TAU, color: Math.random() < 0.06 ? '255,220,150' : '255,255,255' });
-    }
-    // Création des poussières
-    for (let i = 0; i < DUST_COUNT; i++) {
-      dust.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, r: Math.random() * 1.8 + 0.6, alpha: 0.03 + Math.random() * 0.07 });
-    }
-  }
-
-  // On initialise les particules au démarrage
-  initAll();
-
-  // Quand on redimensionne la fenêtre, on adapte le canvas et on relance l'init
-  addEventListener('resize', () => { W = canvas.width = innerWidth; H = canvas.height = innerHeight; initAll(); });
-  // Quand la souris bouge, on met à jour sa position et on génère des étincelles
-  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; emitSparksTrail(e.clientX, e.clientY); });
-  // Quand la souris sort de la fenêtre, on la met hors écran
-  addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
-
-  // Génère une étincelle à une position donnée (effet lumineux)
-  function emitSpark(x, y) {
-    sparks.push({ x, y, vx: (Math.random() - 0.5) * 2.2, vy: (Math.random() - 0.5) * 2.2, r: Math.random() * 1.8 + 0.4, life: 18 + Math.random() * 22, age: 0, color: Math.random() < 0.12 ? '255,200,120' : '200,220,255' });
-  }
-  // Génère plusieurs étincelles autour de la souris (effet de traînée)
-  function emitSparksTrail(x, y) {
-    for (let i = 0; i < 2; i++) emitSpark(x + (Math.random() - 0.5) * 8, y + (Math.random() - 0.5) * 8);
-  }
-
-  // Fonction principale d'animation, appelée à chaque image
-  function step() {
-    // Efface le canvas
-    ctx.clearRect(0, 0, W, H);
-    // Dégradé de fond spatial
-    const g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, 'rgba(2,6,23,0.35)');
-    g.addColorStop(1, 'rgba(0,0,5,0.85)');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-
-    // --- Affichage des étoiles de fond (scintillent) ---
-    for (const s of bgStars) {
-      s.tw += 0.003;
-      const a = s.alpha * (0.7 + Math.sin(s.tw) * 0.35);
-      ctx.beginPath(); ctx.fillStyle = `rgba(200,220,255,${a})`; ctx.arc(s.x, s.y, s.r, 0, TAU); ctx.fill();
-    }
-
-    // --- Affichage des étoiles principales (mobiles, repoussées par la souris) ---
-    for (const s of mainStars) {
-      s.x += s.vx; s.y += s.vy;
-      // Si l'étoile sort de l'écran, elle réapparaît de l'autre côté
-      if (s.x < 0) s.x += W; if (s.x > W) s.x -= W; if (s.y < 0) s.y += H; if (s.y > H) s.y -= H;
-      s.twPhase += 0.012;
-      const tw = 0.78 + Math.sin(s.twPhase) * 0.3;
-      // Calcul de la distance à la souris
-      const dx = s.x - mouse.x; const dy = s.y - mouse.y; const d2 = dx * dx + dy * dy; const R = 180;
-      // Si la souris est proche, l'étoile est repoussée (effet magnétique)
-      if (d2 < R * R) {
-        const d = Math.sqrt(d2) || 0.001;
-        const f = (1 - (d / R)) * 1.4;
-        s.vx += (dx / d) * f * 0.9;
-        s.vy += (dy / d) * f * 0.9;
-        emitSpark(s.x, s.y); // Génère une étincelle
+      // Etoiles de fond (fixes, scintillent)
+      const BG = Math.floor(a / 45000);
+      for (let i = 0; i < BG; i++) {
+        bgStars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 0.9 + 0.2, alpha: 0.12 + Math.random() * 0.45, tw: Math.random() * TAU });
       }
-      // Ralentit progressivement l'étoile
-      s.vx *= 0.986; s.vy *= 0.986;
-      const speed = Math.min(4, Math.abs(s.vx) + Math.abs(s.vy));
-      ctx.beginPath(); ctx.fillStyle = `rgba(${s.color},${Math.min(1, s.alpha * tw)})`; ctx.arc(s.x, s.y, s.r + speed * 1.3, 0, TAU); ctx.fill();
-    }
 
-    // --- Affichage des poussières spatiales (petits points mobiles) ---
-    for (const d of dust) {
-      d.x += d.vx; d.y += d.vy;
-      if (d.x < 0) d.x += W; if (d.x > W) d.x -= W; if (d.y < 0) d.y += H; if (d.y > H) d.y -= H;
-      // Légère répulsion par la souris
-      const dx = d.x - mouse.x, dy = d.y - mouse.y; const d2 = dx * dx + dy * dy;
-      if (d2 < 30000) {
-        const dd = Math.sqrt(d2) || 0.001;
-        const force = (1 - dd / 200) * 0.18;
-        d.vx += (dx / dd) * force;
-        d.vy += (dy / dd) * force;
+      // Etoiles principales (repoussees par la souris)
+      const MAIN = Math.floor(a / 140000) + 200;
+      for (let i = 0; i < MAIN; i++) {
+        mainStars.push({
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.14, vy: (Math.random() - 0.5) * 0.14,
+          r: Math.random() * 1.6 + 0.4,
+          alpha: 0.6 + Math.random() * 0.6,
+          twPhase: Math.random() * TAU,
+          color: Math.random() < 0.06 ? '255,220,150' : '255,255,255'
+        });
       }
-      d.vx *= 0.996; d.vy *= 0.996;
-      ctx.beginPath(); ctx.fillStyle = `rgba(180,200,255,${d.alpha})`; ctx.arc(d.x, d.y, d.r, 0, TAU); ctx.fill();
+
+      // Poussieres spatiales
+      const DUST = Math.floor(a / 22000) * 2;
+      for (let i = 0; i < DUST; i++) {
+        dust.push({
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+          r: Math.random() * 1.8 + 0.6,
+          alpha: 0.03 + Math.random() * 0.07
+        });
+      }
     }
 
-    // --- Affichage des étincelles (effet lumineux temporaire) ---
-    for (let i = sparks.length - 1; i >= 0; i--) {
-      const p = sparks[i]; p.age++;
-      if (p.age >= p.life) { sparks.splice(i, 1); continue; }
-      p.x += p.vx; p.y += p.vy; p.vx *= 0.95; p.vy *= 0.95;
-      const a = Math.max(0, 1 - (p.age / p.life));
-      ctx.beginPath(); ctx.fillStyle = `rgba(${p.color},${a})`; ctx.arc(p.x, p.y, p.r * a, 0, TAU); ctx.fill();
+    initParticles();
+
+    window.addEventListener('resize', () => {
+      W = canvas.width = innerWidth;
+      H = canvas.height = innerHeight;
+      initParticles();
+    });
+
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX; mouse.y = e.clientY;
+      // Trainee d'etincelles derriere la souris
+      for (let i = 0; i < 2; i++) {
+        sparks.push({
+          x: e.clientX + (Math.random() - 0.5) * 8,
+          y: e.clientY + (Math.random() - 0.5) * 8,
+          vx: (Math.random() - 0.5) * 2.2, vy: (Math.random() - 0.5) * 2.2,
+          r: Math.random() * 1.8 + 0.4,
+          life: 18 + Math.random() * 22, age: 0,
+          color: Math.random() < 0.12 ? '255,200,120' : '200,220,255'
+        });
+      }
+    });
+
+    window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Degrade de fond
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, 'rgba(2,6,23,0.35)');
+      g.addColorStop(1, 'rgba(0,0,5,0.85)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+      // Etoiles de fond (scintillement)
+      for (const s of bgStars) {
+        s.tw += 0.003;
+        const a = s.alpha * (0.7 + Math.sin(s.tw) * 0.35);
+        ctx.beginPath(); ctx.fillStyle = `rgba(200,220,255,${a})`; ctx.arc(s.x, s.y, s.r, 0, TAU); ctx.fill();
+      }
+
+      // Etoiles principales (interaction souris)
+      const R = 180;
+      for (const s of mainStars) {
+        s.x += s.vx; s.y += s.vy;
+        if (s.x < 0) s.x += W; if (s.x > W) s.x -= W;
+        if (s.y < 0) s.y += H; if (s.y > H) s.y -= H;
+        s.twPhase += 0.012;
+        const tw = 0.78 + Math.sin(s.twPhase) * 0.3;
+
+        const dx = s.x - mouse.x, dy = s.y - mouse.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < R * R) {
+          const d = Math.sqrt(d2) || 0.001;
+          const f = (1 - d / R) * 1.4;
+          s.vx += (dx / d) * f * 0.9;
+          s.vy += (dy / d) * f * 0.9;
+        }
+        s.vx *= 0.986; s.vy *= 0.986;
+
+        const speed = Math.min(4, Math.abs(s.vx) + Math.abs(s.vy));
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${s.color},${Math.min(1, s.alpha * tw)})`;
+        ctx.arc(s.x, s.y, s.r + speed * 1.3, 0, TAU);
+        ctx.fill();
+      }
+
+      // Poussieres
+      for (const d of dust) {
+        d.x += d.vx; d.y += d.vy;
+        if (d.x < 0) d.x += W; if (d.x > W) d.x -= W;
+        if (d.y < 0) d.y += H; if (d.y > H) d.y -= H;
+        const dx = d.x - mouse.x, dy = d.y - mouse.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 30000) {
+          const dd = Math.sqrt(d2) || 0.001;
+          const force = (1 - dd / 200) * 0.18;
+          d.vx += (dx / dd) * force;
+          d.vy += (dy / dd) * force;
+        }
+        d.vx *= 0.996; d.vy *= 0.996;
+        ctx.beginPath(); ctx.fillStyle = `rgba(180,200,255,${d.alpha})`; ctx.arc(d.x, d.y, d.r, 0, TAU); ctx.fill();
+      }
+
+      // Etincelles (trainee souris)
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const p = sparks[i]; p.age++;
+        if (p.age >= p.life) { sparks.splice(i, 1); continue; }
+        p.x += p.vx; p.y += p.vy; p.vx *= 0.95; p.vy *= 0.95;
+        const a = Math.max(0, 1 - p.age / p.life);
+        ctx.beginPath(); ctx.fillStyle = `rgba(${p.color},${a})`; ctx.arc(p.x, p.y, p.r * a, 0, TAU); ctx.fill();
+      }
+
+      requestAnimationFrame(animate);
     }
 
-    // Redemande une nouvelle image pour l'animation (boucle infinie)
-    requestAnimationFrame(step);
+    requestAnimationFrame(animate);
   }
 
-  // Démarre l'animation
-  requestAnimationFrame(step);
+  // -------------------------------------------
+  // 2. Navbar : scroll effect + active link
+  // -------------------------------------------
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  const sections = document.querySelectorAll('.section, .hero');
 
-
-  // ===============================
-  // Gestion du menu de navigation (ouverture/fermeture)
-  // ===============================
-  const menuToggle = document.getElementById('menuToggle'); // bouton hamburger
-  const mainNav = document.getElementById('main-nav');      // panneau de navigation
-  // Par défaut, le menu est ouvert (classe .open)
-  if (menuToggle) menuToggle.setAttribute('aria-expanded', 'true');
-  if (mainNav) {
-    mainNav.classList.add('open');
-    mainNav.classList.remove('closed');
-    document.body.classList.add('nav-open');
+  // Scroll shadow on navbar
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
   }
-  // Quand on clique sur le bouton, on ouvre/ferme le menu (animation CSS)
-  if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-      const isOpen = mainNav.classList.toggle('open');
-      if (isOpen) mainNav.classList.remove('closed'); else mainNav.classList.add('closed');
-      menuToggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.classList.toggle('nav-open', isOpen);
-      // L'état visuel est géré par les classes CSS (.open/.closed)
+
+  // Mobile menu toggle
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 
-  // ===============================
-  // Affichage du titre dans la topbar selon la section visible
-  // ===============================
-  const homeSection = document.getElementById('home');
-  if (homeSection) {
-    document.body.classList.add('hero-visible');
-    const heroObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const shouldHide = entry.isIntersecting && entry.intersectionRatio > 0.35;
-        document.body.classList.toggle('hero-visible', shouldHide);
-      });
-    }, { threshold: [0, 0.35, 0.7, 1] });
-    heroObserver.observe(homeSection);
+  // Active nav link based on scroll position
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + 120;
+    const allLinks = document.querySelectorAll('.nav-links a');
+
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+
+      if (scrollPos >= top && scrollPos < bottom) {
+        const id = section.getAttribute('id');
+        allLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      }
+    });
   }
 
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
 
-  // ===============================
-  // Formulaire de contact avec reCAPTCHA et envoi au serveur
-  // ===============================
+  // -------------------------------------------
+  // 3. Reveal on scroll (IntersectionObserver)
+  // -------------------------------------------
+  const reveals = document.querySelectorAll('.reveal');
+  if (reveals.length > 0 && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+  }
+
+  // -------------------------------------------
+  // 4. Footer year
+  // -------------------------------------------
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // -------------------------------------------
+  // 5. Contact form
+  // -------------------------------------------
   const contactForm = document.getElementById('contactForm');
   const contactStatus = document.getElementById('contactStatus');
   const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
   if (contactForm && contactStatus) {
     const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const setStatus = (message, isError = false) => {
-      contactStatus.textContent = message;
+
+    const setStatus = (msg, isError = false) => {
+      contactStatus.textContent = msg;
       contactStatus.classList.toggle('error', isError);
     };
-    contactForm.addEventListener('submit', async evt => {
+
+    contactForm.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       if (submitBtn) submitBtn.disabled = true;
       setStatus('Envoi en cours...');
@@ -207,25 +264,23 @@
       }
 
       if (!window.grecaptcha) {
-        setStatus('Le service reCAPTCHA n\'est pas disponible. Veuillez réessayer plus tard.', true);
+        setStatus("Le service reCAPTCHA n'est pas disponible.", true);
         if (submitBtn) submitBtn.disabled = false;
         return;
       }
 
       const captchaToken = window.grecaptcha.getResponse();
       if (!captchaToken) {
-        setStatus('Veuillez cocher le reCAPTCHA avant d\'envoyer.', true);
+        setStatus("Veuillez cocher le reCAPTCHA avant d'envoyer.", true);
         if (submitBtn) submitBtn.disabled = false;
         return;
       }
-
-      const payload = { name, email, subject, message, captchaToken };
 
       try {
         const response = await fetch('/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ name, email, subject, message, captchaToken })
         });
 
         if (!response.ok) {
@@ -233,12 +288,12 @@
           throw new Error(text || 'Erreur serveur');
         }
 
-        setStatus('Votre message a été envoyé avec succès. Merci !');
+        setStatus('Message envoye avec succes. Merci !');
         contactForm.reset();
         window.grecaptcha.reset();
       } catch (error) {
         console.error('contact form error', error);
-        setStatus("L'envoi a échoué. Merci de réessayer plus tard.", true);
+        setStatus("L'envoi a echoue. Merci de reessayer plus tard.", true);
         window.grecaptcha.reset();
       } finally {
         if (submitBtn) submitBtn.disabled = false;
@@ -246,28 +301,4 @@
     });
   }
 
-
-  // ===============================
-  // Prévisualisation des fichiers ajoutés (CV, rapports, etc.)
-  // ===============================
-  const fileInput = document.getElementById('fileInput'); // champ d'ajout de fichiers
-  const filesList = document.getElementById('filesList'); // zone d'affichage des fichiers
-  if (fileInput) {
-    fileInput.addEventListener('change', e => {
-      const files = Array.from(e.target.files || []);
-      if (files.length === 0) { filesList.textContent = 'Aucun document chargé.'; return; }
-      filesList.innerHTML = '';
-      // Pour chaque fichier sélectionné, on crée un lien pour le visualiser/télécharger
-      files.forEach(f => {
-        const div = document.createElement('div');
-        const a = document.createElement('a');
-        a.textContent = f.name + ' (' + Math.round(f.size / 1024) + ' KB)';
-        a.href = URL.createObjectURL(f);
-        a.target = '_blank';
-        div.appendChild(a);
-        filesList.appendChild(div);
-      });
-    });
-  }
-
-})(); // Fin du script principal
+})();

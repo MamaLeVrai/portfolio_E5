@@ -1,183 +1,456 @@
-<!--
-  Portfolio BTS SIO — Thème spatial/Star Wars
-  Ce fichier HTML structure la page principale du portfolio.
-  Chaque section est commentée pour expliquer son rôle.
--->
 <!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio - Thème Spatial</title>
+  <title>Margueray Marius — Portfolio BTS SIO SLAM</title>
+  <meta name="description"
+    content="Portfolio professionnel de Margueray Marius, etudiant BTS SIO option SLAM. Projets, competences et parcours.">
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- Fond animé : ciel étoilé généré en JavaScript (voir script.js) -->
+  <!-- Fond anime : particules subtiles -->
   <canvas id="starfield"></canvas>
 
-  <!-- Section d'accueil (hero) avec nom, sous-titre et flèche -->
+  <!-- Navigation fixe en haut -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#home" class="navbar-brand">M<span class="accent">.</span>M</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Accueil</a>
+        <a href="#about">A propos</a>
+        <a href="#skills">Competences</a>
+        <a href="#projects">Projets</a>
+        <a href="#watch">Veille techno</a>
+        <a href="#synthesis">Synthese</a>
+        <a href="#documents">Documents</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
   <section id="home" class="hero">
-    <div class="hero-content">
+    <div class="hero-content fade-in">
+      <p class="hero-greeting">Bonjour, je suis</p>
       <h1 class="hero-title">Margueray Marius</h1>
-      <p class="hero-subtitle">Étudiant BTS SIO — Développeur / Administrateur</p>
-      <a href="#about" class="hero-scroll" aria-label="Aller au contenu">
-        <svg width="48" height="48" viewBox="0 0 48 48"><path d="M12 20l12 12 12-12" stroke="#ffd54f" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <p class="hero-subtitle">Alternant BTS SIO option SLAM chez Leonard Solutions</p>
+      <p class="hero-desc">Passionne par le developpement d'applications et la resolution de problemes techniques.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+        <a href="#contact" class="btn btn-outline">Me contacter</a>
+      </div>
+    </div>
+    <a href="#about" class="scroll-indicator" aria-label="Defiler vers le bas">
+      <svg width="32" height="32" viewBox="0 0 32 32">
+        <path d="M8 13l8 8 8-8" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </a>
+  </section>
+
+  <!-- A PROPOS -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">A propos</h2>
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>Actuellement en deuxieme annee de <strong>BTS SIO option SLAM</strong> (Solutions Logicielles et
+            Applications Metiers) en alternance chez <strong>Leonard Solutions</strong> a Caen, je me forme au
+            developpement d'applications web et logicielles.</p>
+          <p>Mon alternance me permet de combiner apprentissage theorique et mise en pratique en entreprise, en
+            travaillant sur des projets concrets de developpement.</p>
+          <div class="about-details">
+            <div class="detail-item">
+              <span class="detail-label">Formation</span>
+              <span class="detail-value">BTS SIO SLAM (alternance) — 2024-2026</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Entreprise</span>
+              <span class="detail-value">Leonard Solutions — Caen</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Localisation</span>
+              <span class="detail-value">Caen, Normandie</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Email</span>
+              <span class="detail-value"><a
+                  href="mailto:margueray.marius@gmail.com">margueray.marius@gmail.com</a></span>
+            </div>
+          </div>
+        </div>
+        <div class="about-timeline">
+          <h3>Parcours</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-date">2024 — 2026</span>
+              <h4>BTS SIO option SLAM — Alternance</h4>
+              <p>Formation au developpement d'applications, bases de donnees, cybersecurite et gestion de projets.
+                Alternance chez Leonard Solutions a Caen.</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-date">2021 — 2024</span>
+              <h4>Bac General — Institut Lemonnier, Caen</h4>
+              <p>Specialites Mathematiques et NSI (Numerique et Sciences Informatiques). Seconde au lycee Marie-Joseph a
+                Trouville-sur-Mer, puis premiere et terminale a Lemonnier.</p>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-date">2017 — 2021</span>
+              <h4>College Saint-Louis — Cabourg</h4>
+              <p>Annees college.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Bandeau supérieur avec le nom et le titre -->
-  <header class="topbar">
-    <h1 id="name">Margueray Marius</h1> <!-- Nom principal affiché en haut -->
-    <p class="subtitle" id="tagline">Étudiant BTS SIO — Développeur / Administrateur</p> <!-- Sous-titre -->
-    <div class="actions"></div>
-  </header>
+  <!-- COMPETENCES -->
+  <section id="skills" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title reveal">Competences</h2>
+      <p class="section-intro reveal">Competences acquises dans le cadre du BTS SIO SLAM, organisees selon les blocs du
+        referentiel.</p>
 
-  <!-- Main navigation (fixed) -->
-  <!-- Menu de navigation latéral (à droite, déroulant) -->
-  <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
-  <!-- Bouton hamburger pour ouvrir/fermer le menu -->
-  <button id="menuToggle" class="menu-toggle" aria-expanded="true" aria-controls="main-nav" aria-label="Basculer le menu">
-      <!-- hamburger icon SVG -->
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-        <rect x="3" y="6" width="18" height="2" rx="1" fill="currentColor"></rect>
-        <rect x="3" y="11" width="18" height="2" rx="1" fill="currentColor"></rect>
-        <rect x="3" y="16" width="18" height="2" rx="1" fill="currentColor"></rect>
-      </svg>
-    </button>
-  <!-- Liens vers les différentes sections de la page -->
-  <div class="nav-links">
-    <a href="#home">Accueil</a>
-    <a href="#about">À propos</a>
-    <a href="#skills">Compétences</a>
-    <a href="#projects">Projets</a>
-    <a href="#documents">Documents</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="nav-socials" aria-label="Réseaux sociaux">
-    <a class="social-link" href="https://www.instagram.com/votreprofil" target="_blank" rel="noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2a2.5 2.5 0 1 0 2.5 2.5A2.5 2.5 0 0 0 12 9.5zm5.25-2.75a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
-    </a>
-    <a class="social-link" href="https://www.linkedin.com/in/votreprofil" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1-.02 0zm.02 4H2v13h3V7.5zM8 7.5h2.88v1.79h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59V21H14v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H8z"/></svg>
-    </a>
-    <a class="social-link" href="https://github.com/votreprofil" target="_blank" rel="noreferrer" aria-label="GitHub">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12a11.49 11.49 0 0 0 7.86 10.91c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.39-3.87-1.39-.52-1.31-1.27-1.66-1.27-1.66-1.04-.7.08-.68.08-.68 1.15.09 1.75 1.18 1.75 1.18 1.03 1.76 2.7 1.25 3.36.95a2.44 2.44 0 0 1 .73-1.53c-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.1a4.1 4.1 0 0 1 .11-3.05s.97-.31 3.18 1.18a10.86 10.86 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18a4.1 4.1 0 0 1 .11 3.05A4.46 4.46 0 0 1 20 12c0 4.43-2.69 5.4-5.25 5.68a2.73 2.73 0 0 1 .78 2.11v3.13c0 .31.21.66.8.55A11.49 11.49 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
-    </a>
-  </div>
-  </nav>
+      <div class="skills-grid reveal">
+        <!-- Bloc 1 -->
+        <div class="skill-card">
+          <div class="skill-icon">&#60;/&#62;</div>
+          <h3>Developpement</h3>
+          <ul>
+            <li>PHP</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>HTML / CSS</li>
+            <li>SQL / MySQL</li>
+          </ul>
+        </div>
+        <!-- Bloc 2 -->
+        <div class="skill-card">
+          <div class="skill-icon">&#9881;</div>
+          <h3>Outils & Methodes</h3>
+          <ul>
+            <li>Git / GitHub</li>
+            <li>VS Code</li>
+            <li>Methode Agile / Scrum</li>
+            <li>UML / Merise</li>
+            <li>Tests unitaires</li>
+          </ul>
+        </div>
+        <!-- Bloc 3 -->
+        <div class="skill-card">
+          <div class="skill-icon">&#128274;</div>
+          <h3>Systemes</h3>
+          <ul>
+            <li>Linux (notions)</li>
+            <li>Windows</li>
+            <li>Virtualisation</li>
+          </ul>
+        </div>
+        <!-- Bloc 4 -->
+        <div class="skill-card">
+          <div class="skill-icon">&#128736;</div>
+          <h3>Cybersecurite</h3>
+          <ul>
+            <li>RGPD / conformite</li>
+            <li>Securisation des donnees</li>
+            <li>Gestion des droits d'acces</li>
+            <li>Sauvegarde et restauration</li>
+            <li>Sensibilisation utilisateurs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Contenu principal du portfolio -->
-  <main class="sheet">
-    <!-- Section présentation personnelle -->
-    <section class="card" id="about">
-      <h2>À propos</h2>
-      <div class="editable" contenteditable id="aboutText">Écrivez ici une courte présentation, vos objectifs pour le BTS SIO, et les compétences clés.</div>
-    </section>
+  <!-- PROJETS -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Projets & Situations professionnelles</h2>
+      <p class="section-intro reveal">Projets realises en formation et en alternance chez Leonard Solutions, illustrant
+        les competences du referentiel BTS SIO SLAM.</p>
 
-    <!-- Section compétences techniques et transversales -->
-    <section class="card" id="skills">
-      <h2>Compétences</h2>
-      <ul contenteditable id="skillsList">
-        <li>Programmation : PHP, JavaScript, Python</li>
-        <li>Réseaux / Systèmes : Linux, Windows Server</li>
-        <li>Gestion de projets : Scrum, Git</li>
-      </ul>
-    </section>
+      <div class="projects-grid reveal">
+        <!-- Projet 1 : EasyCleanESAT -->
+        <article class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Application Web</span>
+            <span class="project-date">2025</span>
+          </div>
+          <h3>EasyCleanESAT</h3>
+          <p>Application web de gestion des interventions en ESAT (Etablissement et Service d'Aide par le Travail). Developpee avec Symfony, elle permet la creation, le suivi et la gestion des interventions, avec systeme d'authentification et support multilingue.</p>
+          <div class="project-tech">
+            <span>PHP</span><span>Symfony</span><span>Twig</span><span>JavaScript</span><span>MySQL</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Boniben/easycleanesat" target="_blank" rel="noreferrer" class="btn btn-sm btn-ghost">Code source</a>
+          </div>
+        </article>
 
-    <!-- Section pour présenter les projets réalisés -->
-    <section class="card" id="projects">
-      <h2>Projets</h2>
-      <div class="editable" contenteditable id="projectsText">Présentez vos projets (nom, rôle, technos, liens, captures).</div>
-    </section>
+        <!-- Projet 2 -->
+        <article class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Application</span>
+            <span class="project-date">2025</span>
+          </div>
+          <h3>Nom du projet 2</h3>
+          <p>Description du projet : contexte, objectifs, votre role dans le projet et les problematiques resolues.</p>
+          <div class="project-tech">
+            <span>Python</span><span>SQLite</span><span>Tkinter</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="btn btn-sm">Documentation</a>
+            <a href="#" class="btn btn-sm btn-ghost">Code source</a>
+          </div>
+        </article>
 
-    <!-- Section pour ajouter et visualiser des documents (CV, rapports, etc.) -->
-    <section class="card" id="documents">
-      <h2>Documents (CV, rapports)</h2>
-      <input id="fileInput" type="file" multiple /> <!-- Permet de sélectionner plusieurs fichiers -->
-      <div id="filesList">Aucun document chargé.</div> <!-- Liste des fichiers sélectionnés -->
-      <p class="note">Les fichiers ajoutés ici sont accessibles localement dans votre session de navigateur (création de liens locaux). Pour l'examen, joignez aussi vos sources dans une archive ou dossier.</p>
-    </section>
+        <!-- Projet 3 -->
+        <article class="project-card">
+          <div class="project-header">
+            <span class="project-tag">Alternance</span>
+            <span class="project-date">2024 — 2026</span>
+          </div>
+          <h3>Nom du projet 3 (Leonard Solutions)</h3>
+          <p>Description du projet realise en alternance : missions, environnement technique, resultats obtenus.</p>
+          <div class="project-tech">
+            <span>PHP</span><span>MySQL</span><span>Git</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="btn btn-sm">Documentation</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-    <!-- Section contact avec adresse, mail, téléphone et carte Google Maps -->
-    <section class="card contact-card" id="contact">
-      <h2>Contact</h2>
-      <div class="contact-flex">
+  <!-- VEILLE TECHNOLOGIQUE -->
+  <section id="watch" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title reveal">Veille technologique</h2>
+      <p class="section-intro reveal">La veille technologique est une activite essentielle pour rester informe des
+        evolutions du secteur informatique.</p>
+
+      <div class="watch-grid reveal">
+        <div class="watch-method">
+          <h3>Ma methode de veille</h3>
+          <p>Je realise une veille reguliere en utilisant plusieurs canaux d'information afin de suivre les evolutions
+            technologiques pertinentes pour mon domaine.</p>
+          <ul>
+            <li><strong>Flux RSS</strong> — Feedly pour agreger les sources</li>
+            <li><strong>Reseaux sociaux</strong> — Twitter/X, LinkedIn (communautes dev)</li>
+            <li><strong>Sites specialises</strong> — Stack Overflow, Dev.to, Medium</li>
+            <li><strong>Newsletters</strong> — JavaScript Weekly, PHP Annotated</li>
+            <li><strong>Veille collaborative</strong> — Echanges avec les collegues de formation</li>
+          </ul>
+        </div>
+        <div class="watch-topic">
+          <h3>Sujet de veille principal</h3>
+          <div class="watch-card">
+            <h4>A completer : votre sujet de veille</h4>
+            <p>Decrivez ici votre sujet de veille technologique principal (ex : intelligence artificielle,
+              cybersecurite, frameworks JS, DevOps, etc.).</p>
+            <p>Expliquez pourquoi ce sujet est pertinent, quelles sources vous consultez, et quelles conclusions vous en
+              tirez pour votre pratique professionnelle.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLEAU DE SYNTHESE -->
+  <section id="synthesis" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Tableau de synthese</h2>
+      <p class="section-intro reveal">Correspondance entre les competences du referentiel BTS SIO et les situations
+        professionnelles realisees.</p>
+
+      <div class="table-wrapper reveal">
+        <table class="synthesis-table">
+          <thead>
+            <tr>
+              <th>Competence (referentiel)</th>
+              <th>Situation professionnelle</th>
+              <th>Contexte</th>
+              <th>Moyens / Outils</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gerer le patrimoine informatique</td>
+              <td>A completer</td>
+              <td>Formation / Alternance</td>
+              <td>A completer</td>
+            </tr>
+            <tr>
+              <td>Repondre aux incidents</td>
+              <td>A completer</td>
+              <td>Formation / Alternance</td>
+              <td>A completer</td>
+            </tr>
+            <tr>
+              <td>Developper la presence en ligne</td>
+              <td>Creation de ce portfolio</td>
+              <td>Formation</td>
+              <td>HTML, CSS, JavaScript</td>
+            </tr>
+            <tr>
+              <td>Travailler en mode projet</td>
+              <td>A completer</td>
+              <td>Formation / Alternance</td>
+              <td>Git, Scrum, Trello</td>
+            </tr>
+            <tr>
+              <td>Mettre a disposition une application</td>
+              <td>A completer</td>
+              <td>Formation / Alternance</td>
+              <td>A completer</td>
+            </tr>
+            <tr>
+              <td>Concevoir et developper une solution applicative</td>
+              <td>A completer</td>
+              <td>Formation / Alternance</td>
+              <td>A completer</td>
+            </tr>
+            <tr>
+              <td>Assurer la maintenance corrective ou evolutive</td>
+              <td>A completer</td>
+              <td>Formation / Alternance</td>
+              <td>A completer</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section id="documents" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title reveal">Documents</h2>
+      <p class="section-intro reveal">Mon curriculum vitae a jour.</p>
+
+      <div class="docs-grid reveal">
+        <a href="#" class="doc-card">
+          <div class="doc-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+          </div>
+          <h4>CV</h4>
+          <p>Curriculum Vitae a jour</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Contact</h2>
+      <div class="contact-grid reveal">
         <div class="contact-info">
-          <div class="contact-row">
-            <span class="contact-icon">📍</span>
+          <div class="contact-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
             <div>
-              <span class="contact-label">Localisation :</span><br>
-              <span>30 Rue de la Miséricorde<br>14000 Caen</span>
+              <strong>Localisation</strong>
+              <p>30 Rue de la Misericorde, 14000 Caen</p>
             </div>
           </div>
-          <div class="contact-row">
-            <span class="contact-icon">✉️</span>
+          <div class="contact-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
             <div>
-              <span class="contact-label">Email :</span><br>
-              <a href="mailto:margueray.marius@gmail.com">margueray.marius@gmail.com</a>
+              <strong>Email</strong>
+              <p><a href="mailto:margueray.marius@gmail.com">margueray.marius@gmail.com</a></p>
             </div>
           </div>
-          <div class="contact-row">
-            <span class="contact-icon">📱</span>
+          <div class="contact-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
             <div>
-              <span class="contact-label">Numéro de téléphone :</span><br>
-              <a href="tel:0637539583">06&nbsp;37&nbsp;53&nbsp;95&nbsp;83</a>
+              <strong>Telephone</strong>
+              <p><a href="tel:0637539583">06 37 53 95 83</a></p>
             </div>
+          </div>
+
+          <div class="contact-socials">
+            <a href="https://github.com/votreprofil" target="_blank" rel="noreferrer" aria-label="GitHub"
+              class="social-btn">
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <path fill="currentColor"
+                  d="M12 .5A11.5 11.5 0 0 0 .5 12a11.49 11.49 0 0 0 7.86 10.91c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.39-3.87-1.39-.52-1.31-1.27-1.66-1.27-1.66-1.04-.7.08-.68.08-.68 1.15.09 1.75 1.18 1.75 1.18 1.03 1.76 2.7 1.25 3.36.95a2.44 2.44 0 0 1 .73-1.53c-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.1a4.1 4.1 0 0 1 .11-3.05s.97-.31 3.18 1.18a10.86 10.86 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18a4.1 4.1 0 0 1 .11 3.05A4.46 4.46 0 0 1 20 12c0 4.43-2.69 5.4-5.25 5.68a2.73 2.73 0 0 1 .78 2.11v3.13c0 .31.21.66.8.55A11.49 11.49 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/votreprofil" target="_blank" rel="noreferrer" aria-label="LinkedIn"
+              class="social-btn">
+              <svg viewBox="0 0 24 24" width="22" height="22">
+                <path fill="currentColor"
+                  d="M4.98 3.5a2.5 2.5 0 1 1-.02 0zm.02 4H2v13h3V7.5zM8 7.5h2.88v1.79h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59V21H14v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H8z" />
+              </svg>
+            </a>
           </div>
         </div>
-        <div class="contact-map">
-          <!-- Carte Google Maps intégrée pour l'adresse -->
-          <iframe title="Carte 30 Rue de la Miséricorde, Caen" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2652.964964073839!2d-0.3705536843939642!3d49.18462297915237!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480a43e2e2e2e2e3%3A0x2e2e2e2e2e2e2e2e!2s30%20Rue%20de%20la%20Mis%C3%A9ricorde%2C%2014000%20Caen!5e0!3m2!1sfr!2sfr!4v1690000000001!5m2!1sfr!2sfr" width="340" height="220" style="border:0;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.18);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        <div class="contact-socials" aria-label="Mes réseaux sociaux">
-          <a class="social-link" href="https://www.instagram.com/votreprofil" target="_blank" rel="noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2a2.5 2.5 0 1 0 2.5 2.5A2.5 2.5 0 0 0 12 9.5zm5.25-2.75a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/></svg>
-          </a>
-          <a class="social-link" href="https://www.linkedin.com/in/votreprofil" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1-.02 0zm.02 4H2v13h3V7.5zM8 7.5h2.88v1.79h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59V21H14v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H8z"/></svg>
-          </a>
-          <a class="social-link" href="https://github.com/votreprofil" target="_blank" rel="noreferrer" aria-label="GitHub">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12a11.49 11.49 0 0 0 7.86 10.91c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.39-3.87-1.39-.52-1.31-1.27-1.66-1.27-1.66-1.04-.7.08-.68.08-.68 1.15.09 1.75 1.18 1.75 1.18 1.03 1.76 2.7 1.25 3.36.95a2.44 2.44 0 0 1 .73-1.53c-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.1a4.1 4.1 0 0 1 .11-3.05s.97-.31 3.18 1.18a10.86 10.86 0 0 1 5.8 0c2.21-1.49 3.18-1.18 3.18-1.18a4.1 4.1 0 0 1 .11 3.05A4.46 4.46 0 0 1 20 12c0 4.43-2.69 5.4-5.25 5.68a2.73 2.73 0 0 1 .78 2.11v3.13c0 .31.21.66.8.55A11.49 11.49 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
-          </a>
+
+        <div class="contact-form-wrapper">
+          <h3>Envoyer un message</h3>
+          <form id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="contactName">Nom / Prenom</label>
+              <input id="contactName" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input id="contactEmail" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="form-group">
+              <label for="contactSubject">Objet</label>
+              <input id="contactSubject" name="subject" type="text" maxlength="120">
+            </div>
+            <div class="form-group">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" name="message" rows="5" maxlength="2000" required></textarea>
+            </div>
+            <div class="captcha-row">
+              <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+            </div>
+            <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+          </form>
         </div>
       </div>
-      <div class="contact-form-wrapper">
-        <h3>Envoyer un message</h3>
-        <form id="contactForm" novalidate>
-          <label for="contactName">Nom / Prénom</label>
-          <input id="contactName" name="name" type="text" autocomplete="name" required>
+    </div>
+  </section>
 
-          <label for="contactEmail">Adresse email</label>
-          <input id="contactEmail" name="email" type="email" autocomplete="email" required>
-
-          <label for="contactSubject">Objet</label>
-          <input id="contactSubject" name="subject" type="text" maxlength="120" placeholder="Sujet de votre message">
-
-          <label for="contactMessage">Message</label>
-          <textarea id="contactMessage" name="message" rows="5" maxlength="2000" required></textarea>
-
-          <div class="captcha-row">
-            <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
-          </div>
-
-          <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
-          <button type="submit">Envoyer</button>
-        </form>
-        <p class="note">Remplacez <code>YOUR_RECAPTCHA_SITE_KEY</code> par votre clé reCAPTCHA publique.</p>
-      </div>
-    </section>
-  </main>
-
-  <!-- Pied de page -->
+  <!-- FOOTER -->
   <footer class="footer">
-    <small>&copy; <span id="year">2025</span> — Portfolio BTS SIO</small>
+    <div class="container">
+      <p>&copy; <span id="year">2025</span> Margueray Marius — Portfolio BTS SIO SLAM</p>
+    </div>
   </footer>
 
-  <!-- Script principal pour l’animation et les interactions -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="script.js" defer></script>
 </body>
+
 </html>
