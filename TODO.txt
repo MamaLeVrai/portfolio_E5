@@ -1,5 +1,7 @@
 Next steps:
 
-Replace YOUR_RECAPTCHA_SITE_KEY in index.html with your Google reCAPTCHA site key.
-Set RECAPTCHA_SECRET (and SMTP vars) before running npm start.
-Test the form end-to-end to confirm the captcha checks and email sending work with your credentials.
+[DONE] Replace YOUR_RECAPTCHA_SITE_KEY in index.html with your Google reCAPTCHA site key.
+[DONE] Set RECAPTCHA_SECRET (and SMTP vars) in .env — reCAPTCHA + Gmail SMTP configures.
+[DONE] dotenv installe via npm.
+
+Pour lancer le serveur : npm start

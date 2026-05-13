@@ -725,6 +725,95 @@ img { max-width: 100%; display: block; }
   background: rgba(255, 255, 255, 0.02);
 }
 
+/* --- Tableau E5 format officiel --- */
+.synthesis-e5 {
+  font-size: 0.82rem;
+  min-width: 900px;
+}
+
+.synthesis-e5 .col-realisation,
+.synthesis-e5 .col-realisation-desc {
+  min-width: 260px;
+  max-width: 320px;
+}
+
+.synthesis-e5 .col-competences-header {
+  text-align: center;
+}
+
+.synthesis-e5 .col-comp {
+  text-align: center;
+  font-size: 0.72rem;
+  min-width: 90px;
+  max-width: 110px;
+  line-height: 1.3;
+  padding: 12px 8px;
+}
+
+.synthesis-e5 .col-periode,
+.synthesis-e5 .col-periode-val {
+  min-width: 90px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.synthesis-e5 td.check {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  vertical-align: middle;
+}
+
+.synthesis-e5 .synthesis-section-header td {
+  background: rgba(255, 213, 79, 0.06);
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  border-top: 1px solid rgba(255, 213, 79, 0.2);
+  border-bottom: 1px solid rgba(255, 213, 79, 0.2);
+}
+
+.synthesis-e5 .col-realisation-desc strong {
+  display: block;
+  color: var(--text);
+  font-size: 0.88rem;
+  margin-bottom: 2px;
+}
+
+.synthesis-e5 .synthesis-context {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--accent);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+
+.synthesis-e5 .col-realisation-desc p {
+  margin: 0 0 6px;
+  line-height: 1.5;
+}
+
+.synthesis-e5 .synthesis-links {
+  margin-top: 6px;
+  font-size: 0.75rem;
+}
+
+.synthesis-e5 .synthesis-links a {
+  color: var(--accent);
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.synthesis-e5 .synthesis-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 /* --- Documents --- */
 .docs-grid {
   display: grid;
