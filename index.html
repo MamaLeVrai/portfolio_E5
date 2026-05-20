@@ -196,38 +196,6 @@
           </div>
         </article>
 
-        <!-- Projet 2 -->
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-tag">Application</span>
-            <span class="project-date">2025</span>
-          </div>
-          <h3>Nom du projet 2</h3>
-          <p>Description du projet : contexte, objectifs, votre role dans le projet et les problematiques resolues.</p>
-          <div class="project-tech">
-            <span>Python</span><span>SQLite</span><span>Tkinter</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="btn btn-sm">Documentation</a>
-            <a href="#" class="btn btn-sm btn-ghost">Code source</a>
-          </div>
-        </article>
-
-        <!-- Projet 3 -->
-        <article class="project-card">
-          <div class="project-header">
-            <span class="project-tag">Alternance</span>
-            <span class="project-date">2024 — 2026</span>
-          </div>
-          <h3>Nom du projet 3 (Leonard Solutions)</h3>
-          <p>Description du projet realise en alternance : missions, environnement technique, resultats obtenus.</p>
-          <div class="project-tech">
-            <span>PHP</span><span>MySQL</span><span>Git</span>
-          </div>
-          <div class="project-links">
-            <a href="#" class="btn btn-sm">Documentation</a>
-          </div>
-        </article>
       </div>
     </div>
   </section>
@@ -298,7 +266,7 @@
       <p class="section-intro reveal">Mon curriculum vitae a jour.</p>
 
       <div class="docs-grid reveal">
-        <a href="#" class="doc-card">
+        <a href="CV_Marius_Margueray_2026.pdf" target="_blank" rel="noreferrer" class="doc-card">
           <div class="doc-icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -389,8 +357,9 @@
               <label for="contactMessage">Message</label>
               <textarea id="contactMessage" name="message" rows="5" maxlength="2000" required></textarea>
             </div>
-            <div class="captcha-row">
-              <div class="g-recaptcha" data-sitekey="6LdxNpEsAAAAAH92ze3zMntO2wSSOdyR0cxB0Na6"></div>
+            <!-- honeypot : invisible pour les humains, rempli par les bots -->
+            <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+              <input id="contactWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
             </div>
             <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
             <button type="submit" class="btn btn-primary">Envoyer</button>
@@ -407,7 +376,6 @@
     </div>
   </footer>
 
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="script.js" defer></script>
 </body>
 

@@ -241,63 +241,37 @@
 
   if (contactForm && contactStatus) {
     const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const formLoadedAt = Date.now();
 
     const setStatus = (msg, isError = false) => {
       contactStatus.textContent = msg;
       contactStatus.classList.toggle('error', isError);
     };
 
-    contactForm.addEventListener('submit', async (evt) => {
+    contactForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      if (submitBtn) submitBtn.disabled = true;
-      setStatus('Envoi en cours...');
 
       const name = (document.getElementById('contactName')?.value || '').trim();
       const email = (document.getElementById('contactEmail')?.value || '').trim();
       const subject = (document.getElementById('contactSubject')?.value || '').trim();
       const message = (document.getElementById('contactMessage')?.value || '').trim();
+      const honeypot = (document.getElementById('contactWebsite')?.value || '');
+      const elapsed = Date.now() - formLoadedAt;
 
       if (!name || !email || !message || !emailPattern.test(email)) {
         setStatus('Merci de remplir correctement tous les champs obligatoires.', true);
-        if (submitBtn) submitBtn.disabled = false;
         return;
       }
 
-      if (!window.grecaptcha) {
-        setStatus("Le service reCAPTCHA n'est pas disponible.", true);
-        if (submitBtn) submitBtn.disabled = false;
-        return;
-      }
+      if (honeypot || elapsed < 3000) return;
 
-      const captchaToken = window.grecaptcha.getResponse();
-      if (!captchaToken) {
-        setStatus("Veuillez cocher le reCAPTCHA avant d'envoyer.", true);
-        if (submitBtn) submitBtn.disabled = false;
-        return;
-      }
+      const mailSubject = encodeURIComponent(`[Portfolio] ${subject || 'Sans sujet'}`);
+      const mailBody = encodeURIComponent(`Nom : ${name}\nEmail : ${email}\n\n${message}`);
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=margueray.marius@gmail.com&su=${mailSubject}&body=${mailBody}`;
+      window.open(gmailUrl, '_blank');
 
-      try {
-        const response = await fetch('/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, subject, message, captchaToken })
-        });
-
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(text || 'Erreur serveur');
-        }
-
-        setStatus('Message envoye avec succes. Merci !');
-        contactForm.reset();
-        window.grecaptcha.reset();
-      } catch (error) {
-        console.error('contact form error', error);
-        setStatus("L'envoi a echoue. Merci de reessayer plus tard.", true);
-        window.grecaptcha.reset();
-      } finally {
-        if (submitBtn) submitBtn.disabled = false;
-      }
+      setStatus('Gmail s\'ouvre dans un nouvel onglet. Merci !');
+      contactForm.reset();
     });
   }
 
